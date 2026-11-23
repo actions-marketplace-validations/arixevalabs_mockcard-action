@@ -1,0 +1,12 @@
+{
+  "name": "mockcard-action",
+  "version": "2.0.0",
+  "private": true,
+  "description": "GitHub Action: MockCard chaos run in CI.",
+  "author": "Arixeva Labs <hello@arixevalabs.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": { "build": "esbuild src/index.ts --bundle --platform=node --target=node24 --format=esm --outfile=dist/index.js" },
+  "dependencies": { "mockcard": "^2.0.0" },
+  "devDependencies": { "esbuild": "0.25.10" }
+}

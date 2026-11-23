@@ -1,0 +1,33 @@
+# MockCard chaos run — GitHub Action. Author: Arixeva Labs <hello@arixevalabs.com>
+name: MockCard chaos run
+description: Run payment-failure chaos scenarios against your webhook handler and fail the build when it breaks.
+author: Arixeva Labs
+branding: { icon: shield, color: blue }
+inputs:
+  api-key:
+    description: MockCard API key (use a CI-scoped key stored as a secret).
+    required: true
+  project-id:
+    description: MockCard project ID (prj_…).
+    required: true
+  target:
+    description: Your webhook URL as reachable from the runner, e.g. http://localhost:3000/api/webhooks/stripe
+    required: true
+  scenarios:
+    description: Comma-separated scenarios. Default — success, insufficient_funds, 3ds_challenge, 3ds_abandoned, duplicate, latency, limbo.
+    required: false
+  min-score:
+    description: Fail the job below this score (0–100).
+    required: false
+    default: "100"
+  time-scale:
+    description: 0–1, shrinks waits (latency, 3DS) to keep CI fast.
+    required: false
+    default: "0.2"
+outputs:
+  run-id: { description: The MockCard run ID }
+  score: { description: The run's score out of 100 }
+  status: { description: passed | failed | error }
+runs:
+  using: node24
+  main: dist/index.js
